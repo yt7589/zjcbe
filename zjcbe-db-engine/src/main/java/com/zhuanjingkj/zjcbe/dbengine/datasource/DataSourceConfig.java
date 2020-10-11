@@ -76,6 +76,7 @@ public class DataSourceConfig {
         Boolean isSetDefaultDataSource = false;
 
         for (Map.Entry<String, DBJsonModel> entry : dbInfos.entrySet()) {
+            System.out.println("yt:" + entry.getKey() + ": " + entry.getValue() + "!");
             DataSource ds = this.buildDruidDataSource(entry.getValue());
             dataSources.put(entry.getKey().toLowerCase(), ds);
             if (!isSetDefaultDataSource) {
@@ -125,10 +126,14 @@ public class DataSourceConfig {
         try {
             //文件系统中需要使用File加载,classPath需要使用ClassLoader加载(本地使用ClassLoader加载)
             if (StringUtils.startsWithIgnoreCase(dbConfigPath, "/")) {
+                System.out.println("yt: 1 " + dbConfigPath);
                 content = new Scanner(new File(dbConfigPath)).useDelimiter("\\Z").next();
+                System.out.println("yt:  1 content=" + content + "!");
             } else {
+                System.out.println("yt: 2 " + dbConfigPath);
                 InputStream inputStream = DataSourceConfig.class.getClassLoader().getResourceAsStream(dbConfigPath);
                 content = new Scanner(inputStream).useDelimiter("\\Z").next();//以“，”分割读取内容
+                System.out.println("yt:  2 content=" + content + "!");
             }
         } catch (FileNotFoundException e) {
             this.logger.error(String.format("加载DB配置文件失败：%s", dbConfigPath), e);
@@ -168,6 +173,7 @@ public class DataSourceConfig {
                 url = String.format(MS_SQL_TEMPLATE, dbInfo.getDbAddress(), dbInfo.getDbPort(), dbInfo.getDbName());
                 break;
             case MY_SQL:
+                System.out.println("############# addr: " + dbInfo.getDbAddress() + "!");
                 url = String.format(MY_SQL_TEMPLATE, dbInfo.getDbAddress(), dbInfo.getDbPort(), dbInfo.getDbName());
                 break;
             default:
