@@ -20,8 +20,8 @@ import java.util.TimeZone;
 @ServletComponentScan
 @EnableScheduling
 @EnableTransactionManagement(proxyTargetClass = true)
-@ComponentScan(basePackages = {"com.yefeng.vehicle.*"})
-@MapperScan(basePackages = {"com.yefeng.vehicle.domain.mapper"})
+@ComponentScan(basePackages = {"com.zhuanjingkj.zjcbe.*"})
+@MapperScan(basePackages = {"com.zhuanjingkj.zjcbe.domain.mapper"})
 public class AppsApplication {
 	public static void main(String[] args) {
 		TimeZone.setDefault(TimeZone.getTimeZone("GMT+8"));
