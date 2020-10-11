@@ -7,6 +7,7 @@ import com.zhuanjingkj.zjcbe.business.dto.analysis.VehicleAnalysisResponseDTO;
 import com.zhuanjingkj.zjcbe.business.dto.analysis.VideoUploadResponseDTO;
 import com.zhuanjingkj.zjcbe.business.service.analysis.IVehicleAnalysisService;
 import com.zhuanjingkj.zjcbe.commondata.baseDTO.ResultDTO;
+import com.zhuanjingkj.zjcbe.commondata.rto.RectifyImgRecgRstRTO;
 import com.zhuanjingkj.zjcbe.utility.output.CustomOutputUtility;
 import com.zhuanjingkj.zjcbe.utility.string.StringUtils;
 import com.zhuanjingkj.zjcbe.utilityredis.RedisUtil;
@@ -40,9 +41,9 @@ public class VehicleAnalysisController {
      * @return
      */
     @ApiOperation(value = "图片识别纠错", notes = "向服务器反馈图片识别结果有问题")
-    @PostMapping(value = "/rectifyImgRecgRst")
+    @PostMapping(value = "/rectifyImgRecgRst0")
     @BaseAuthorize
-    public ResultDTO<RectifyImgRecgRstDTO> rectifyImgRecgRst(
+    public ResultDTO<RectifyImgRecgRstDTO> rectifyImgRecgRst0(
             @RequestParam(value = "p") String platform,
             @RequestParam(value = "v") String version,
             @RequestHeader String accessToken,
@@ -55,6 +56,22 @@ public class VehicleAnalysisController {
         logger.info("imageId=" + imageId + "!");
         try {
             return analysisService.rectifyImage(imageId, "", "");
+        } catch (Exception ex) {
+            return CustomOutputUtility.excuteFail(ex.getMessage());
+        }
+    }
+    @ApiOperation(value = "图片识别纠错", notes = "向服务器反馈图片识别结果有问题")
+    @PostMapping(value = "/rectifyImgRecgRst", produces = "application/json;charset=UTF-8")
+    @BaseAuthorize
+    public ResultDTO<RectifyImgRecgRstDTO> rectifyImgRecgRst(
+            @RequestHeader String accessToken,
+            @RequestBody RectifyImgRecgRstRTO rto) {
+        logger.info("platform=" + rto.getP() + "!");
+        logger.info("version=" + rto.getV() + "!");
+        logger.info("accessToken=" + accessToken);
+        logger.info("imageId=" + rto.getImageId() + "!");
+        try {
+            return analysisService.rectifyImage(rto.getImageId(), "", "");
         } catch (Exception ex) {
             return CustomOutputUtility.excuteFail(ex.getMessage());
         }
