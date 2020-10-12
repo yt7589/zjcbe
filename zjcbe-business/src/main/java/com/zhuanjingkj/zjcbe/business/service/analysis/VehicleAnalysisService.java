@@ -1,5 +1,6 @@
 package com.zhuanjingkj.zjcbe.business.service.analysis;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.zhuanjingkj.zjcbe.business.dto.analysis.*;
 import com.zhuanjingkj.zjcbe.business.dto.analysis.*;
 import com.zhuanjingkj.zjcbe.business.dto.analysis.*;
@@ -13,6 +14,7 @@ import com.zhuanjingkj.zjcbe.commondata.vehicleDTO.VehicleImageMessageDTO;
 import com.zhuanjingkj.zjcbe.domain.entity.ImageRectifyEntity;
 import com.zhuanjingkj.zjcbe.domain.entity.VehicleRtmpShotEntity;
 import com.zhuanjingkj.zjcbe.domain.entity.VehicleRtspconfigEntity;
+import com.zhuanjingkj.zjcbe.domain.po.VehicleAnalysisHptzPO;
 import com.zhuanjingkj.zjcbe.domain.po.VehicleAnalysisPO;
 import com.zhuanjingkj.zjcbe.domain.po.VehicleAnalysisWztzPO;
 import com.zhuanjingkj.zjcbe.domain.po.VehicleImagesPO;
@@ -46,6 +48,8 @@ public class VehicleAnalysisService implements IVehicleAnalysisService {
 
 	@Autowired
 	VehicleAnalysisWztzRepository vehicleAnalysisWztzRepository;
+	@Autowired
+	VehicleAnalysisHptzRepository vehicleAnalysisHptzRepository;
 
 	@Autowired
 	AnalysisFileUploadService fileUploadService;
@@ -181,6 +185,7 @@ public class VehicleAnalysisService implements IVehicleAnalysisService {
 			vadDTO = new VehicleAnalysisDetailDTO();
 			vadDTO.setSxh(vpo.getSxh());
 			vadDTO.setWztz(getWztzDTO(analysisId));
+			vadDTO.setHptz(getHptzDTO(analysisId));
 			logger.info("########### analysisId: " + analysisId + "!");
 			detailDTOS.add(vadDTO);
 		}
@@ -201,9 +206,28 @@ public class VehicleAnalysisService implements IVehicleAnalysisService {
 		return vaWztzDTO;
 	}
 
+	/**
+	 * 获取号牌特征
+	 * @param analysisId
+	 * @return
+	 */
 	private VehicleAnalysisHptzDTO getHptzDTO(String analysisId) {
 		VehicleAnalysisHptzDTO vaHptzDTO = new VehicleAnalysisHptzDTO();
-		VehicleAnalysisHptzPO
+		VehicleAnalysisHptzPO hptzPO = vehicleAnalysisHptzRepository.getVehicleAnalysisHptz(analysisId);
+		vaHptzDTO.setHpzt(hptzPO.getHpzt()); // 1. 号牌状态
+		vaHptzDTO.setHpwz(hptzPO.getHpwz()); // 2. 号牌位置
+		vaHptzDTO.setHpzl(hptzPO.getHpzl()); // 3. 号牌种类
+		vaHptzDTO.setHpys(hptzPO.getHpys()); // 4. 号牌颜色
+		vaHptzDTO.setHpgg(hptzPO.getHpgg()); // 5. 号牌字符样式
+		vaHptzDTO.setHphm(hptzPO.getHphm()); // 6. 号牌号码
+		vaHptzDTO.setHpkxd(hptzPO.getHpkxd()); // 7. 号牌可信度
+		vaHptzDTO.setMwhpkxd(hptzPO.getMwhpkxd()); // 8. 每位号牌可信度
+		vaHptzDTO.setYwlshp(hptzPO.getYwlshp()); // 9. 有无临时号牌
 		return vaHptzDTO;
+	}
+
+	private VehicleAnalysisCxtzDTO getCxtzDTO(String analysisId) {
+		VehicleAnalysisCxtzDTO vaCxtzDTO = new VehicleAnalysisCxtzDTO();
+		return vaCxtzDTO;
 	}
 }
