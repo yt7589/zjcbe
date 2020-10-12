@@ -159,4 +159,20 @@ public class VehicleAnalysisService implements IVehicleAnalysisService {
 			return CustomOutputUtility.excuteFail("添加图片纠错内容失败");
 		}
 	}
+
+	@Override
+	public ResultDTO<VehicleAnalysisResponseDTO> getImageRecgJson(String imageId) {
+		VehicleAnalysisResponseDTO dto = new VehicleAnalysisResponseDTO();
+		VehicleImagesPO vehicleImagesPO = vehicleImagesRepository.getImageInfo(imageId);
+		dto.setImageId(imageId);
+		dto.setImageUrl(vehicleImagesPO.getImageUrl());
+		dto.setImageName(vehicleImagesPO.getImageName());
+		List<VehicleAnalysisPO> vpos = analysisRepository.getAnalysisListByImageId(imageId);
+		String analysisId = null;
+		for (VehicleAnalysisPO vpo : vpos) {
+			analysisId = vpo.getAnalysisId();
+			logger.info("########### analysisId: " + analysisId + "!");
+		}
+		return CustomOutputUtility.excuteSuccess(dto);
+	}
 }

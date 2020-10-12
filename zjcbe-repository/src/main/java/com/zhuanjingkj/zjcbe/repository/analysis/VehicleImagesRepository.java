@@ -34,4 +34,14 @@ public class VehicleImagesRepository extends ServiceImpl<VehicleImagesMapper, Ve
                                                    String endTime, int startIdx, int amount, int direction) {
         return baseMapper.getImageRecgDatas(accountId, startTime, endTime, startIdx, amount, direction);
     }
+
+    /**
+     * 获取指定图片的基本信息
+     * @param imageId
+     * @return
+     */
+    @SingleDataSource(businessType = DBBusinessType.BUS_LINE, visitType = DBVisitType.READ)
+    public VehicleImagesPO getImageInfo(String imageId) {
+        return baseMapper.getImageInfo(imageId);
+    }
 }

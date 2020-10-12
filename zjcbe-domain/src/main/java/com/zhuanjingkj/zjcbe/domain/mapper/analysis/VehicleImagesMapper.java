@@ -38,4 +38,6 @@ public interface VehicleImagesMapper extends BaseMapper<VehicleImagesEntity> {
     )
     public List<VehicleImagesPO> getImageRecgDatas(long accountId, String startTime,
                                                    String endTime, int startIdx, int amount, int direction);
+
+    public VehicleImagesPO getImageInfo(@Param("imageId") String imageId);
 }

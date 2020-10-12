@@ -25,4 +25,11 @@ public interface IVehicleAnalysisService {
     ResultDTO<VideoUploadResponseDTO> videoUpload(MultipartFile file);
 
     ResultDTO<RectifyImgRecgRstDTO> rectifyImage(String imageId, String userJson, String userNotes);
+
+    /**
+     * 获取图片JSON格式识别结果
+     * @param imageId
+     * @return
+     */
+    ResultDTO<VehicleAnalysisResponseDTO> getImageRecgJson(String imageId);
 }
