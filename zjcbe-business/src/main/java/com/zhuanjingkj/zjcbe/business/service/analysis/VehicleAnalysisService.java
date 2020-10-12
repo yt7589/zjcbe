@@ -51,6 +51,8 @@ public class VehicleAnalysisService implements IVehicleAnalysisService {
 	VehicleAnalysisCxtzRepository vehicleAnalysisCxtzRepository;
 	@Autowired
 	VehicleAnalysisJsxwtzRepository vehicleAnalysisJsxwtzRepository;
+	@Autowired
+	VehicleAnalysisGxhtzRepository vehicleAnalysisGxhtzRepository;
 
 	@Autowired
 	AnalysisFileUploadService fileUploadService;
@@ -189,6 +191,7 @@ public class VehicleAnalysisService implements IVehicleAnalysisService {
 			vadDTO.setHptz(getHptzDTO(analysisId));
 			vadDTO.setCxtz(getCxtzDTO(analysisId));
 			vadDTO.setJsxztz(getJsxwtzDTO(analysisId));
+			vadDTO.setGxhtz(getGxhtzDTO(analysisId));
 			logger.info("########### analysisId: " + analysisId + "!");
 			detailDTOS.add(vadDTO);
 		}
@@ -265,5 +268,26 @@ public class VehicleAnalysisService implements IVehicleAnalysisService {
 		vaJsxwtzDTO.setFjszyb(jsxwtzPO.getFjszyb());
 		vaJsxwtzDTO.setMtcbdtk(jsxwtzPO.getMtcbdtk());
 		return vaJsxwtzDTO;
+	}
+
+	/**
+	 * 获取车辆个性化特征
+	 * @param analysisId
+	 * @return
+	 */
+	private VehicleAnalysisGxhtzDTO getGxhtzDTO(String analysisId) {
+		VehicleAnalysisGxhtzDTO vaGxhtzDTO = new VehicleAnalysisGxhtzDTO();
+		VehicleAnalysisGxhtzPO gxhtzPO = vehicleAnalysisGxhtzRepository.getVehicleAnalysisGxhtz(analysisId);
+		vaGxhtzDTO.setCcztw(gxhtzPO.getCcztw());
+		vaGxhtzDTO.setBj(gxhtzPO.getBj());
+		vaGxhtzDTO.setGj(gxhtzPO.getGj());
+		vaGxhtzDTO.setTc(gxhtzPO.getTc());
+		vaGxhtzDTO.setXlj(gxhtzPO.getXlj());
+		vaGxhtzDTO.setDcjqs(gxhtzPO.getDcjqs());
+		vaGxhtzDTO.setCszt(gxhtzPO.getCszt());
+		vaGxhtzDTO.setCsps(gxhtzPO.getCsps());
+		vaGxhtzDTO.setCsgh(gxhtzPO.getCsgh());
+		vaGxhtzDTO.setCsch(gxhtzPO.getCsch());
+		return vaGxhtzDTO;
 	}
 }

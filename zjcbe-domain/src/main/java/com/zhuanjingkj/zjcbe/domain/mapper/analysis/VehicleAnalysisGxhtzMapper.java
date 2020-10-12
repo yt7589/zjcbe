@@ -2,7 +2,9 @@ package com.zhuanjingkj.zjcbe.domain.mapper.analysis;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.zhuanjingkj.zjcbe.domain.entity.VehicleAnalysisGxhtzEntity;
+import com.zhuanjingkj.zjcbe.domain.po.VehicleAnalysisGxhtzPO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -13,5 +15,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Mapper
 public interface VehicleAnalysisGxhtzMapper extends BaseMapper<VehicleAnalysisGxhtzEntity> {
-
+    public VehicleAnalysisGxhtzPO getVehicleAnalysisGxhtz(@Param("analysisId") String analysisId);
 }
