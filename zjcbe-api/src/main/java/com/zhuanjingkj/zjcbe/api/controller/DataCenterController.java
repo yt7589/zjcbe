@@ -1,6 +1,7 @@
 package com.zhuanjingkj.zjcbe.api.controller;
 
 import com.zhuanjingkj.zjcbe.api.annotation.BaseAuthorize;
+import com.zhuanjingkj.zjcbe.business.dto.analysis.VehicleAnalysisResponseDTO;
 import com.zhuanjingkj.zjcbe.business.dto.dc.QueryImageRecgDatasDTO;
 import com.zhuanjingkj.zjcbe.business.service.dc.IImageRecgDatasService;
 import com.zhuanjingkj.zjcbe.commondata.baseDTO.ResultDTO;
@@ -42,6 +43,21 @@ public class DataCenterController {
                 queryImageRecgDatas(accessToken,
                 startTime, endTime,
                 startIdx, amount, direction);
+        return CustomOutputUtility.excuteSuccess(dto);
+    }
+
+    @ApiOperation(value = "获取指定用户图片识别列表", notes = "用户所有图片识别记录")
+    @GetMapping(value = "/getImageRecgJson")
+    @BaseAuthorize
+    public ResultDTO<VehicleAnalysisResponseDTO> getImageRecgJson(
+            @RequestParam(value = "p") String platform,
+            @RequestParam(value = "v") String version,
+            @RequestHeader String accessToken,
+            @RequestParam(value="imageId") String imageId) {
+        VehicleAnalysisResponseDTO dto = new VehicleAnalysisResponseDTO();
+        // 获取图片信息
+        // 取该图片所有识别结果
+        // 循环添加识别结果
         return CustomOutputUtility.excuteSuccess(dto);
     }
 }
