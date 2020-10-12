@@ -6,6 +6,7 @@ import com.zhuanjingkj.zjcbe.dbengine.datasource.DBBusinessType;
 import com.zhuanjingkj.zjcbe.dbengine.datasource.DBVisitType;
 import com.zhuanjingkj.zjcbe.domain.entity.VehicleAnalysisCxtzEntity;
 import com.zhuanjingkj.zjcbe.domain.mapper.analysis.VehicleAnalysisCxtzMapper;
+import com.zhuanjingkj.zjcbe.domain.po.VehicleAnalysisCxtzPO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,5 +17,10 @@ public class VehicleAnalysisCxtzRepository extends ServiceImpl<VehicleAnalysisCx
     @SingleDataSource(businessType = DBBusinessType.BUS_LINE, visitType = DBVisitType.WRITE)
     public boolean batchAdd(List<VehicleAnalysisCxtzEntity> entity) {
         return this.insertBatch(entity);
+    }
+
+    @SingleDataSource(businessType = DBBusinessType.BUS_LINE, visitType = DBVisitType.READ)
+    public VehicleAnalysisCxtzPO getVehicleAnalysisCxtz(String analysisId) {
+        return baseMapper.getVehicleAnalysisCxtz(analysisId);
     }
 }

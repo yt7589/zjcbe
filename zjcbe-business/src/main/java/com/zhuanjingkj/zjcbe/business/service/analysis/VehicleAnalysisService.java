@@ -14,10 +14,7 @@ import com.zhuanjingkj.zjcbe.commondata.vehicleDTO.VehicleImageMessageDTO;
 import com.zhuanjingkj.zjcbe.domain.entity.ImageRectifyEntity;
 import com.zhuanjingkj.zjcbe.domain.entity.VehicleRtmpShotEntity;
 import com.zhuanjingkj.zjcbe.domain.entity.VehicleRtspconfigEntity;
-import com.zhuanjingkj.zjcbe.domain.po.VehicleAnalysisHptzPO;
-import com.zhuanjingkj.zjcbe.domain.po.VehicleAnalysisPO;
-import com.zhuanjingkj.zjcbe.domain.po.VehicleAnalysisWztzPO;
-import com.zhuanjingkj.zjcbe.domain.po.VehicleImagesPO;
+import com.zhuanjingkj.zjcbe.domain.po.*;
 import com.zhuanjingkj.zjcbe.utility.image.ImageUtils;
 import com.zhuanjingkj.zjcbe.utility.map.ObjectMapperUtils;
 import com.zhuanjingkj.zjcbe.utility.output.CustomOutputUtility;
@@ -50,6 +47,8 @@ public class VehicleAnalysisService implements IVehicleAnalysisService {
 	VehicleAnalysisWztzRepository vehicleAnalysisWztzRepository;
 	@Autowired
 	VehicleAnalysisHptzRepository vehicleAnalysisHptzRepository;
+	@Autowired
+	VehicleAnalysisCxtzRepository vehicleAnalysisCxtzRepository;
 
 	@Autowired
 	AnalysisFileUploadService fileUploadService;
@@ -186,6 +185,7 @@ public class VehicleAnalysisService implements IVehicleAnalysisService {
 			vadDTO.setSxh(vpo.getSxh());
 			vadDTO.setWztz(getWztzDTO(analysisId));
 			vadDTO.setHptz(getHptzDTO(analysisId));
+			vadDTO.setCxtz(getCxtzDTO(analysisId));
 			logger.info("########### analysisId: " + analysisId + "!");
 			detailDTOS.add(vadDTO);
 		}
@@ -226,8 +226,22 @@ public class VehicleAnalysisService implements IVehicleAnalysisService {
 		return vaHptzDTO;
 	}
 
+	/**
+	 * 获取品牌-车型-年款等信息
+	 * @param analysisId
+	 * @return
+	 */
 	private VehicleAnalysisCxtzDTO getCxtzDTO(String analysisId) {
 		VehicleAnalysisCxtzDTO vaCxtzDTO = new VehicleAnalysisCxtzDTO();
+		VehicleAnalysisCxtzPO cxtzPO = vehicleAnalysisCxtzRepository.getVehicleAnalysisCxtz(analysisId);
+		vaCxtzDTO.setCllxfl(cxtzPO.getCllxfl());
+		vaCxtzDTO.setCllxzfl(cxtzPO.getCllxzfl());
+		vaCxtzDTO.setCsys(cxtzPO.getCsys());
+		vaCxtzDTO.setClpp(cxtzPO.getClpp());
+		vaCxtzDTO.setPpcx(cxtzPO.getPpcx());
+		vaCxtzDTO.setCxnk(cxtzPO.getCxnk());
+		vaCxtzDTO.setPpxhms(cxtzPO.getPpxhms());
+		vaCxtzDTO.setPpxhkxd(cxtzPO.getPpxhkxd());
 		return vaCxtzDTO;
 	}
 }
