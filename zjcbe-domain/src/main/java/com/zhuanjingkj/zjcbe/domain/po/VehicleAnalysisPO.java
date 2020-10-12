@@ -2,10 +2,10 @@ package com.zhuanjingkj.zjcbe.domain.po;
 
 public class VehicleAnalysisPO {
 
-	private String analysisId;
-	private String imageId;
+	protected String analysisId;
+	protected String imageId;
 	private String gcxh;
-	private int sxh;
+	protected int sxh;
 
 	private String ppcx;
 	private String cllxfl;

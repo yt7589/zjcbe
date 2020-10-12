@@ -17,4 +17,11 @@ public interface VehicleAnalysisWztzMapper extends BaseMapper<VehicleAnalysisWzt
             @Result(property="vehicleNum", column="vehicle_num")
     })*/
     VehicleAnalysisWztzPO getVehicleNumInImage(@Param("imageId") String imageId);
+
+    /**
+     * 获取车辆识别位置特征信息
+     * @param analysisId
+     * @return
+     */
+    VehicleAnalysisWztzPO getVehicleAnalysisWztz(@Param("analysisId") String analysisId);
 }

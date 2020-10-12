@@ -7,6 +7,7 @@ import com.zhuanjingkj.zjcbe.dbengine.datasource.DBVisitType;
 import com.zhuanjingkj.zjcbe.domain.entity.VehicleAnalysisWztzEntity;
 import com.zhuanjingkj.zjcbe.domain.mapper.analysis.VehicleAnalysisWztzMapper;
 import com.zhuanjingkj.zjcbe.domain.po.VehicleAnalysisWztzPO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,5 +23,10 @@ public class VehicleAnalysisWztzRepository extends ServiceImpl<VehicleAnalysisWz
     @SingleDataSource(businessType = DBBusinessType.BUS_LINE, visitType = DBVisitType.READ)
     public VehicleAnalysisWztzPO getVehicleNumInImage(String imageId) {
         return baseMapper.getVehicleNumInImage(imageId);
+    }
+
+    @SingleDataSource(businessType = DBBusinessType.BUS_LINE, visitType = DBVisitType.READ)
+    public VehicleAnalysisWztzPO getVehicleAnalysisWztz(String analysisId) {
+        return baseMapper.getVehicleAnalysisWztz(analysisId);
     }
 }

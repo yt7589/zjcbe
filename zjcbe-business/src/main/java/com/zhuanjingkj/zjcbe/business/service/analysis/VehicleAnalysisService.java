@@ -14,6 +14,7 @@ import com.zhuanjingkj.zjcbe.domain.entity.ImageRectifyEntity;
 import com.zhuanjingkj.zjcbe.domain.entity.VehicleRtmpShotEntity;
 import com.zhuanjingkj.zjcbe.domain.entity.VehicleRtspconfigEntity;
 import com.zhuanjingkj.zjcbe.domain.po.VehicleAnalysisPO;
+import com.zhuanjingkj.zjcbe.domain.po.VehicleAnalysisWztzPO;
 import com.zhuanjingkj.zjcbe.domain.po.VehicleImagesPO;
 import com.zhuanjingkj.zjcbe.utility.image.ImageUtils;
 import com.zhuanjingkj.zjcbe.utility.map.ObjectMapperUtils;
@@ -42,6 +43,9 @@ public class VehicleAnalysisService implements IVehicleAnalysisService {
 
 	@Autowired
 	VehicleAnalysisRepository analysisRepository;
+
+	@Autowired
+	VehicleAnalysisWztzRepository vehicleAnalysisWztzRepository;
 
 	@Autowired
 	AnalysisFileUploadService fileUploadService;
@@ -167,12 +171,39 @@ public class VehicleAnalysisService implements IVehicleAnalysisService {
 		dto.setImageId(imageId);
 		dto.setImageUrl(vehicleImagesPO.getImageUrl());
 		dto.setImageName(vehicleImagesPO.getImageName());
+		List<VehicleAnalysisDetailDTO> detailDTOS = new ArrayList<>();
+		VehicleAnalysisDetailDTO vadDTO = null;
 		List<VehicleAnalysisPO> vpos = analysisRepository.getAnalysisListByImageId(imageId);
 		String analysisId = null;
+		VehicleAnalysisWztzDTO vaWztzDTO = null;
 		for (VehicleAnalysisPO vpo : vpos) {
 			analysisId = vpo.getAnalysisId();
+			vadDTO = new VehicleAnalysisDetailDTO();
+			vadDTO.setSxh(vpo.getSxh());
+			vadDTO.setWztz(getWztzDTO(analysisId));
 			logger.info("########### analysisId: " + analysisId + "!");
+			detailDTOS.add(vadDTO);
 		}
+		dto.setVeh(detailDTOS);
 		return CustomOutputUtility.excuteSuccess(dto);
+	}
+
+	/**
+	 * 获取位置特征
+	 * @param analysisId
+	 * @return
+	 */
+	private VehicleAnalysisWztzDTO getWztzDTO(String analysisId) {
+		VehicleAnalysisWztzDTO vaWztzDTO = new VehicleAnalysisWztzDTO();
+		VehicleAnalysisWztzPO wztz = vehicleAnalysisWztzRepository.getVehicleAnalysisWztz(analysisId);
+		vaWztzDTO.setClwz(wztz.getClwz());
+		vaWztzDTO.setPsfx(wztz.getPsfx());
+		return vaWztzDTO;
+	}
+
+	private VehicleAnalysisHptzDTO getHptzDTO(String analysisId) {
+		VehicleAnalysisHptzDTO vaHptzDTO = new VehicleAnalysisHptzDTO();
+		VehicleAnalysisHptzPO
+		return vaHptzDTO;
 	}
 }
