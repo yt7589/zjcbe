@@ -159,7 +159,7 @@ public class VehicleAnalysisService implements IVehicleAnalysisService {
 	@Override
 	public ResultDTO<RectifyImgRecgRstDTO> rectifyImage(String imageId, String userJson, String userNotes) {
 		RectifyImgRecgRstDTO dto = new RectifyImgRecgRstDTO();
-		dto.setImageId(imageId + "_yt");
+		dto.setImageId(imageId);
 		ImageRectifyEntity entity = new ImageRectifyEntity();
 		entity.setImageId(imageId);
 		entity.setImageState(2);
@@ -192,7 +192,6 @@ public class VehicleAnalysisService implements IVehicleAnalysisService {
 			vadDTO.setCxtz(getCxtzDTO(analysisId));
 			vadDTO.setJsxztz(getJsxwtzDTO(analysisId));
 			vadDTO.setGxhtz(getGxhtzDTO(analysisId));
-			logger.info("########### analysisId: " + analysisId + "!");
 			detailDTOS.add(vadDTO);
 		}
 		dto.setVeh(detailDTOS);
