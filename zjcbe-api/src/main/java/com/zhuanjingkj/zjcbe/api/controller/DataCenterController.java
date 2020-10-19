@@ -2,6 +2,7 @@ package com.zhuanjingkj.zjcbe.api.controller;
 
 import com.zhuanjingkj.zjcbe.api.annotation.BaseAuthorize;
 import com.zhuanjingkj.zjcbe.business.dto.analysis.VehicleAnalysisResponseDTO;
+import com.zhuanjingkj.zjcbe.business.dto.dc.GetUserVideosDTO;
 import com.zhuanjingkj.zjcbe.business.dto.dc.QueryImageRecgDatasDTO;
 import com.zhuanjingkj.zjcbe.business.service.analysis.IVehicleAnalysisService;
 import com.zhuanjingkj.zjcbe.business.service.dc.IImageRecgDatasService;
@@ -61,12 +62,14 @@ public class DataCenterController {
     }
 
     @ApiOperation(value = "获取指定用户视频（SteamId）列表", notes = "视频（steamId）")
-    @GetMapping(value = "/getUserVedios")
+    @GetMapping(value = "/getUserVideos")
     @BaseAuthorize
-    public ResultDTO<VehicleAnalysisResponseDTO> getUserVideos(
+    public ResultDTO<GetUserVideosDTO> getUserVideos(
             @RequestParam(value = "p") String platform,
             @RequestParam(value = "v") String version,
             @RequestHeader String accessToken) {
-        return null;
+        GetUserVideosDTO dto = new GetUserVideosDTO();
+        dto.setTotalNum(888);
+        return CustomOutputUtility.excuteSuccess(dto);
     }
 }
