@@ -59,4 +59,14 @@ public class DataCenterController {
             @RequestParam(value="imageId") String imageId) {
         return vehicleAnalysisService.getImageRecgJson(imageId);
     }
+
+    @ApiOperation(value = "获取指定用户视频（SteamId）列表", notes = "视频（steamId）")
+    @GetMapping(value = "/getUserVedios")
+    @BaseAuthorize
+    public ResultDTO<VehicleAnalysisResponseDTO> getUserVideos(
+            @RequestParam(value = "p") String platform,
+            @RequestParam(value = "v") String version,
+            @RequestHeader String accessToken) {
+        return null;
+    }
 }
