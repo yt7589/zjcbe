@@ -6,6 +6,7 @@ import com.zhuanjingkj.zjcbe.business.dto.dc.GetUserVideosDTO;
 import com.zhuanjingkj.zjcbe.business.dto.dc.QueryImageRecgDatasDTO;
 import com.zhuanjingkj.zjcbe.business.service.analysis.IVehicleAnalysisService;
 import com.zhuanjingkj.zjcbe.business.service.dc.IImageRecgDatasService;
+import com.zhuanjingkj.zjcbe.business.service.dc.IVideoRecgDataService;
 import com.zhuanjingkj.zjcbe.commondata.baseDTO.ResultDTO;
 import com.zhuanjingkj.zjcbe.utility.output.CustomOutputUtility;
 import io.swagger.annotations.Api;
@@ -25,6 +26,8 @@ public class DataCenterController {
     IImageRecgDatasService imageRecgDatasService;
     @Autowired
     IVehicleAnalysisService vehicleAnalysisService;
+    @Autowired
+    IVideoRecgDataService videoRecgDataService;
 
     @ApiOperation(value = "获取指定用户图片识别列表", notes = "用户所有图片识别记录")
     @GetMapping(value = "/queryImageRecgDatas")
@@ -68,8 +71,7 @@ public class DataCenterController {
             @RequestParam(value = "p") String platform,
             @RequestParam(value = "v") String version,
             @RequestHeader String accessToken) {
-        GetUserVideosDTO dto = new GetUserVideosDTO();
-        dto.setTotalNum(888);
+        GetUserVideosDTO dto = videoRecgDataService.getUserVideos(accessToken);
         return CustomOutputUtility.excuteSuccess(dto);
     }
 }
