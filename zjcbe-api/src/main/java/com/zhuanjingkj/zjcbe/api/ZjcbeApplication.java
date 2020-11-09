@@ -7,6 +7,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.annotation.PostConstruct;
 import java.util.TimeZone;
 
 /**
@@ -21,6 +22,10 @@ import java.util.TimeZone;
 @ComponentScan(basePackages = {"com.zhuanjingkj.zjcbe.*"})
 @MapperScan(basePackages = {"com.zhuanjingkj.zjcbe.domain.mapper"})
 public class ZjcbeApplication {
+	@PostConstruct
+	void setDefaultTimezone() {
+		TimeZone.setDefault(TimeZone.getTimeZone("Asia/Shanghai"));
+	}
 
 	public static void main(String[] args) {
 		TimeZone.setDefault(TimeZone.getTimeZone("GMT+8"));

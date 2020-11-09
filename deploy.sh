@@ -1,3 +1,4 @@
+# v0.0.1
 #!/bin/bash
 
 HOME_DIR="/home/ps/www/dev/vehicle/jar/";

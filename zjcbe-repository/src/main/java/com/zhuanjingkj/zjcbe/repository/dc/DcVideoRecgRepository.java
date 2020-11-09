@@ -6,7 +6,7 @@ import com.zhuanjingkj.zjcbe.dbengine.datasource.DBBusinessType;
 import com.zhuanjingkj.zjcbe.dbengine.datasource.DBVisitType;
 import com.zhuanjingkj.zjcbe.domain.entity.NoneEntity;
 import com.zhuanjingkj.zjcbe.domain.mapper.dc.DcVideoRecgMapper;
-import com.zhuanjingkj.zjcbe.domain.po.VideoStreamPO;
+import com.zhuanjingkj.zjcbe.commondata.po.VideoStreamPO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

@@ -2,7 +2,7 @@ package com.zhuanjingkj.zjcbe.business.service.dc;
 
 import com.zhuanjingkj.zjcbe.business.dto.dc.GetUserVideosDTO;
 import com.zhuanjingkj.zjcbe.domain.entity.AccountAuthTokenEntity;
-import com.zhuanjingkj.zjcbe.domain.po.VideoStreamPO;
+import com.zhuanjingkj.zjcbe.commondata.po.VideoStreamPO;
 import com.zhuanjingkj.zjcbe.repository.account.AccountAuthTokenRepository;
 import com.zhuanjingkj.zjcbe.repository.dc.DcVideoRecgRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class VideoRecgDataService implements IVideoRecgDataService {
         System.out.println("### accountId=" + accountId + "!");
         List<VideoStreamPO> vss = dcVideoRecgRepository.getUserVideoStreamIds(accountId);
         for (VideoStreamPO po : vss) {
-            System.out.println("############### po: " + po.getStreamId() + "!");
+            System.out.println("############### po: " + po.getVideoStreamId() + "!");
         }
         GetUserVideosDTO dto = new GetUserVideosDTO();
         dto.setTotalNum(998);

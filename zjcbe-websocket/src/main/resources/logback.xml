@@ -2,7 +2,7 @@
 
 <configuration debug="true">
     <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
-    <property name="LOG_" value="//ps/www/dev/vehicle/logs/websocket"/>
+    <property name="LOG_" value="/home/ps/www/dev/vehicle/logs/websocket"/>
     <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
     <conversionRule conversionWord="wex"
                     converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>

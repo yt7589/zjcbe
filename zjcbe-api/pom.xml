@@ -61,6 +61,11 @@
         </dependency>
         <dependency>
             <groupId>com.zhuanjingkj</groupId>
+            <artifactId>gm-common</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.zhuanjingkj</groupId>
             <artifactId>zjcbe-db-engine</artifactId>
             <version>1.0.0</version>
         </dependency>

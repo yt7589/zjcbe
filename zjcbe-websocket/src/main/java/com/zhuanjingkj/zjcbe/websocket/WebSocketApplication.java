@@ -19,8 +19,8 @@ import java.util.TimeZone;
 @ServletComponentScan
 @EnableScheduling
 @EnableTransactionManagement(proxyTargetClass = true)
-@ComponentScan(basePackages = {"com.zhuanjingkj.vehicle.*"})
-@MapperScan(basePackages = {"com.zhuanjinkj.vehicle.domain.mapper"})
+@ComponentScan(basePackages = {"com.zhuanjingkj.zjcbe.*"})
+@MapperScan(basePackages = {"com.zhuanjingkj.zjcbe.domain.mapper"})
 public class WebSocketApplication {
 
 	public static void main(String[] args) {

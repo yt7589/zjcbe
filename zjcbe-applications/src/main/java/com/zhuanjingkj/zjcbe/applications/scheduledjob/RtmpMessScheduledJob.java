@@ -50,7 +50,7 @@ public class RtmpMessScheduledJob {
 				if (message == null) {
 					return;
 				}
-				logger.info("get message:" + JsonUtils.toJSONString(message).substring(0, 100) + "...");
+				logger.info("闫涛 save json -> get message:" + JsonUtils.toJSONString(message) + "!");
 				VehicleIdentifyMessageDTO identifyResponseDTO = JsonUtils.parseObject(message.toString(), VehicleIdentifyMessageDTO.class);
 				if (identifyResponseDTO != null
 						&& identifyResponseDTO.getCode() == 1
@@ -78,7 +78,7 @@ public class RtmpMessScheduledJob {
 				if (message == null) {
 					return;
 				}
-				logger.info("get message:" + message.toString().substring(0, 10) + "...");
+				logger.info("process cutted image ########## get message:" + message.toString().substring(0, 10) + "...");
 				VehicleImageMessageDTO imageMessageDTO = JsonUtils.parseObject(message.toString(), VehicleImageMessageDTO.class);
 				if (imageMessageDTO != null) {
 					analysisService.saveRtmpImageMessage(imageMessageDTO);

@@ -2,7 +2,7 @@ package com.zhuanjingkj.zjcbe.domain.mapper.dc;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.zhuanjingkj.zjcbe.domain.entity.NoneEntity;
-import com.zhuanjingkj.zjcbe.domain.po.VideoStreamPO;
+import com.zhuanjingkj.zjcbe.commondata.po.VideoStreamPO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
