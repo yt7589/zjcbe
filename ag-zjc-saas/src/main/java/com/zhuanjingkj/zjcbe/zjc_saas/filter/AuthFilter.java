@@ -17,11 +17,11 @@ import org.springframework.data.redis.core.RedisTemplate;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class AuthFilter  extends ZuulFilter {
     @Autowired
-    @Qualifier("defaultRedisTemplate")
-    private RedisTemplate<String, Object> defaultRedisTemplate;
+    private RedisTemplate<String, String> redisTemplate;
     private List<String> mssWhiteList;
 
     public AuthFilter() {
@@ -30,7 +30,6 @@ public class AuthFilter  extends ZuulFilter {
         mssWhiteList = new ArrayList<>();
         mssWhiteList.add("ms-facade/facade/login");
         mssWhiteList.add("ms-facade/facade/register");
-        System.out.println("constructor us1=" + defaultRedisTemplate + "!");
     }
 
     @Override
@@ -57,10 +56,11 @@ public class AuthFilter  extends ZuulFilter {
 
     @Override
     public Object run() throws ZuulException {
-        System.out.println("run us1=" + defaultRedisTemplate + "!");
-        defaultRedisTemplate.opsForValue().set("" + 209, "abc");
-        String v1 = (String)defaultRedisTemplate.opsForValue().get("" + 209);
+        String v1 = redisTemplate.opsForValue().get("userId");
         System.out.println("v1=" + v1 + "!");
+        redisTemplate.opsForValue().set("userId", "1009", 1000*20, TimeUnit.MILLISECONDS);
+        String v2 = redisTemplate.opsForValue().get("userId");
+        System.out.println("v2=" + v2 + "!");
         System.out.println("AuthFilter.run 1");
         RequestContext ctx = RequestContext.getCurrentContext();
         String requestUri = ctx.getRequest().getRequestURI();
