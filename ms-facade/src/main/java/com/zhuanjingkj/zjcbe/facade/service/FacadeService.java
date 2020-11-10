@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
@@ -23,6 +24,8 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 public class FacadeService implements IFacadeService {
+    @Autowired
+    HttpServletRequest request;
     @Autowired
     RedisTemplate<String, Serializable> redisTemplate;
     @Autowired
@@ -50,6 +53,8 @@ public class FacadeService implements IFacadeService {
 
     @Override
     public ResultDTO<GetUserInfoDTO> getUserInfo(String platform, String version, String userIdStr) {
+        String uidStr = request.getHeader(AppConst.AUTH_USER_HEADER);
+        logger.info("用户编号：" + uidStr + "!");
         return fccUserService.getUserInfo(platform, version, userIdStr);
     }
 

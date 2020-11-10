@@ -57,24 +57,19 @@ public class AuthFilter  extends ZuulFilter {
 
     @Override
     public Object run() throws ZuulException {
-        System.out.println("AuthFilter.run 1");
         RequestContext ctx = RequestContext.getCurrentContext();
         String requestUri = ctx.getRequest().getRequestURI();
         boolean isInWhiteList = false;
-        System.out.println("AuthFilter.run 2");
         for (String serviceName : mssWhiteList) {
-            System.out.println("AuthFilter.run 3");
             if (requestUri.indexOf(serviceName) >= 0) {
                 isInWhiteList = true;
             }
         }
-        System.out.println("AuthFilter.run 4");
         if (isInWhiteList) {
             ctx.set(ZjcSaasConst.ZUUL_FILTER_IS_SUCCESS, ZjcSaasConst.ZULL_FILTER_IS_SUCCESS_TRUE);
         } else {
             // 获取Authorization头
             String token = ctx.getRequest().getHeader("Authorization");
-            System.out.println("token=" + token + "!");
             long userId = 0;
             try {
                 Claims cs = Jwts.parser().setSigningKey(AppConst.JWT_KEY.getBytes()).parseClaimsJws(token).getBody();
@@ -85,8 +80,8 @@ public class AuthFilter  extends ZuulFilter {
             }
             if (userId > 0) {
                 ctx.set(ZjcSaasConst.ZUUL_FILTER_IS_SUCCESS, ZjcSaasConst.ZULL_FILTER_IS_SUCCESS_TRUE);
+                ctx.addZuulRequestHeader(AppConst.AUTH_USER_HEADER, "" + userId);
                 Object userIdStr = redisTemplate.opsForValue().get(AppConst.AUTH_REDIS_USER_PREFIX + userId);
-                System.out.println("userIdStr=" + userIdStr + "!");
                 return null;
             }
             ctx.set(ZjcSaasConst.ZUUL_FILTER_IS_SUCCESS, ZjcSaasConst.ZULL_FILTER_IS_SUCCESS_FALSE);
