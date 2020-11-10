@@ -15,13 +15,14 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import javax.annotation.Resource;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class AuthFilter  extends ZuulFilter {
     @Autowired
-    private RedisTemplate<String, String> redisTemplate;
+    private RedisTemplate<String, Serializable> redisTemplate;
     private List<String> mssWhiteList;
 
     public AuthFilter() {
@@ -56,11 +57,6 @@ public class AuthFilter  extends ZuulFilter {
 
     @Override
     public Object run() throws ZuulException {
-        String v1 = redisTemplate.opsForValue().get("userId");
-        System.out.println("v1=" + v1 + "!");
-        redisTemplate.opsForValue().set("userId", "1009", 1000*20, TimeUnit.MILLISECONDS);
-        String v2 = redisTemplate.opsForValue().get("userId");
-        System.out.println("v2=" + v2 + "!");
         System.out.println("AuthFilter.run 1");
         RequestContext ctx = RequestContext.getCurrentContext();
         String requestUri = ctx.getRequest().getRequestURI();
@@ -89,6 +85,8 @@ public class AuthFilter  extends ZuulFilter {
             }
             if (userId > 0) {
                 ctx.set(ZjcSaasConst.ZUUL_FILTER_IS_SUCCESS, ZjcSaasConst.ZULL_FILTER_IS_SUCCESS_TRUE);
+                Object userIdStr = redisTemplate.opsForValue().get(AppConst.AUTH_REDIS_USER_PREFIX + userId);
+                System.out.println("userIdStr=" + userIdStr + "!");
                 return null;
             }
             ctx.set(ZjcSaasConst.ZUUL_FILTER_IS_SUCCESS, ZjcSaasConst.ZULL_FILTER_IS_SUCCESS_FALSE);
