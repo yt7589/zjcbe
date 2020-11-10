@@ -1,5 +1,6 @@
 package com.zhuanjingkj.zjcbe.user.service;
 
+import com.zhuanjingkj.zjcbe.data.dto.GetUserInfoDTO;
 import com.zhuanjingkj.zjcbe.data.dto.LoginDTO;
 import com.zhuanjingkj.zjcbe.data.dto.ResultDTO;
 import com.zhuanjingkj.zjcbe.data.rto.LoginRTO;

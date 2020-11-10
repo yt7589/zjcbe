@@ -1,6 +1,7 @@
 package com.zhuanjingkj.zjcbe.facade.service;
 
 import com.zhuanjingkj.zjcbe.common.AppConst;
+import com.zhuanjingkj.zjcbe.data.dto.GetUserInfoDTO;
 import com.zhuanjingkj.zjcbe.data.dto.LoginDTO;
 import com.zhuanjingkj.zjcbe.data.dto.ResultDTO;
 import com.zhuanjingkj.zjcbe.data.rto.LoginRTO;
@@ -28,6 +29,11 @@ public class FacadeService implements IFacadeService {
         data.setJwtToken(generateJwtToken(data));
         System.out.println("ms-facade::FacadeService.login 3");
         return dto;
+    }
+
+    @Override
+    public ResultDTO<GetUserInfoDTO> getUserInfo(String platform, String version, String userIdStr) {
+        return fccUserService.getUserInfo(platform, version, userIdStr);
     }
 
     public String generateJwtToken(LoginDTO data) {
