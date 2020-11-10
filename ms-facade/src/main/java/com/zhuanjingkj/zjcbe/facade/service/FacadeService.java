@@ -5,29 +5,46 @@ import com.zhuanjingkj.zjcbe.data.dto.GetUserInfoDTO;
 import com.zhuanjingkj.zjcbe.data.dto.LoginDTO;
 import com.zhuanjingkj.zjcbe.data.dto.ResultDTO;
 import com.zhuanjingkj.zjcbe.data.rto.LoginRTO;
+import com.zhuanjingkj.zjcbe.data.vo.UserVO;
 import com.zhuanjingkj.zjcbe.facade.fcc.FccUserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class FacadeService implements IFacadeService {
     @Autowired
+    RedisTemplate<String, Serializable> redisTemplate;
+    @Autowired
     FccUserService fccUserService;
+
+    Logger logger = LoggerFactory.getLogger(FacadeService.class);
 
     @Override
     public ResultDTO<LoginDTO> login(LoginRTO rto) {
-        System.out.println("ms-facade::FacadeService.login 1");
         ResultDTO<LoginDTO> dto = fccUserService.login(rto);
-        System.out.println("ms-facade::FacadeService.login 2");
         LoginDTO data = (LoginDTO)dto.getData();
         data.setJwtToken(generateJwtToken(data));
-        System.out.println("ms-facade::FacadeService.login 3");
+        UserVO userVo = new UserVO();
+        userVo.setUserId(data.getUserId());
+        userVo.setUserName(data.getUserName());
+        userVo.setRoleId(data.getRoleId());
+        userVo.setRoleName(data.getRoleName());
+        logger.info("### Yt ###: save userVo to Redis");
+        redisTemplate.opsForValue().set(
+                AppConst.AUTH_REDIS_USER_PREFIX + userVo.getUserId(),
+                userVo, AppConst.REDIS_USER_DURATION, TimeUnit.MILLISECONDS);
+        logger.info("### Yt ###: save userVo to Redis Done");
         return dto;
     }
 
